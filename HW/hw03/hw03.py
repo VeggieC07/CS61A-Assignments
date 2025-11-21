@@ -25,11 +25,18 @@ def num_eights(n):
     True
     """
     "*** YOUR CODE HERE ***"
-
-
+    if n <10 :
+        if n == 8 :
+            return 1
+        else:
+            return 0
+    else:
+        if n % 10 == 8 :
+            return num_eights(n//10) + 1
+        else:
+            return num_eights(n//10)
 def digit_distance(n):
     """Determines the digit distance of n.
-
     >>> digit_distance(3)
     0
     >>> digit_distance(777) # 0 + 0
@@ -47,6 +54,10 @@ def digit_distance(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n < 10 :
+        return 0
+    else:
+        return digit_distance(n//10) + abs(n % 10 - (n//10) % 10)
 
 
 def interleaved_sum(n, odd_func, even_func):
@@ -71,6 +82,15 @@ def interleaved_sum(n, odd_func, even_func):
     True
     """
     "*** YOUR CODE HERE ***"
+    def helper(s,n):
+        if n-s == 0:
+            return odd_func(n)
+        elif n-s == 1:
+            return odd_func(s) + even_func(n)
+        else:
+            return odd_func(s) + even_func(s+1) + helper(s+2,n)
+
+    return helper(1,n)
 
 
 def next_smaller_dollar(bill):

@@ -13,6 +13,12 @@ def shuffle(s):
     """
     assert len(s) % 2 == 0, 'len(seq) must be even'
     "*** YOUR CODE HERE ***"
+    half = len(s) // 2
+    res = []
+    for i in range(half):
+        res.append(s[i])
+        res.append(s[i + half])
+    return res
 
 
 def deep_map(f, s):
@@ -38,6 +44,12 @@ def deep_map(f, s):
     True
     """
     "*** YOUR CODE HERE ***"
+    for i,v in enumerate(s):
+        if type(v) == list:
+            deep_map(f,v)
+        else:
+            s[i] = f(v)
+
 
 
 HW_SOURCE_FILE=__file__
@@ -47,10 +59,12 @@ def planet(mass):
     """Construct a planet of some mass."""
     assert mass > 0
     "*** YOUR CODE HERE ***"
+    return ['planet', mass]
 
 def mass(p):
     """Select the mass of a planet."""
     assert is_planet(p), 'must call mass on a planet'
+    return p[1]
     "*** YOUR CODE HERE ***"
 
 def is_planet(p):
@@ -104,6 +118,12 @@ def balanced(m):
     True
     """
     "*** YOUR CODE HERE ***"
+    if is_planet(m):
+        return True
+    else:
+        leftm, rightm = left(m), right(m)
+        return balanced(end(leftm)) and balanced(end(rightm)) and length(leftm) * total_mass(end(leftm)) == length(rightm) * total_mass(end(rightm))
+
 
 
 def berry_finder(t):
@@ -124,6 +144,13 @@ def berry_finder(t):
     True
     """
     "*** YOUR CODE HERE ***"
+    if label(t) == 'berry':
+        return True
+    else:
+        for i in branches(t):
+            if berry_finder(i):
+                return True
+    return False
 
 
 HW_SOURCE_FILE=__file__
